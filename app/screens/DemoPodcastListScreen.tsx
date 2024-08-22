@@ -49,7 +49,7 @@ const rnrImages = [rnrImage1, rnrImage2, rnrImage3]
 export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = observer(
   function DemoPodcastListScreen(_props) {
     const { episodeStore } = useStores()
-
+    const { navigation } = _props
     const [refreshing, setRefreshing] = React.useState(false)
     const [isLoading, setIsLoading] = React.useState(false)
 
@@ -127,11 +127,8 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
             </View>
           }
           renderItem={({ item }) => (
-            <EpisodeCard
-              episode={item}
-              isFavorite={episodeStore.hasFavorite(item)}
-              onPressFavorite={() => episodeStore.toggleFavorite(item)}
-            />
+            <Button text={`EPISODE ${item.title}`} onPress={()=> navigation.navigate("Test", { episode: item })}/>
+
           )}
         />
       </Screen>

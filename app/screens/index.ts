@@ -1,4 +1,5 @@
 export * from "./WelcomeScreen"
+export * from "./TestScreen"
 
 export * from "./LoginScreen"
 export * from "./DemoCommunityScreen"

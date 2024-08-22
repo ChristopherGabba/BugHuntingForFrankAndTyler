@@ -7,6 +7,11 @@
     "scheme": "bughuntingforfrankandtyler",
     "version": "1.0.0",
     "orientation": "portrait",
+    "extra": {
+      "eas": {
+        "projectId": "b553b388-0d9e-490a-a511-b91f3a8b7d9e"
+      }
+    },
     "icon": "./assets/images/app-icon-all.png",
     "splash": {
       "image": "./assets/images/splash-logo-all.png",
