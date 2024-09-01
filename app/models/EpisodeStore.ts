@@ -1,4 +1,10 @@
-import { Instance, SnapshotOut, types } from "mobx-state-tree"
+import {
+  Instance,
+  ReferenceIdentifier,
+  SnapshotOut,
+  castToReferenceSnapshot,
+  types,
+} from "mobx-state-tree"
 import { api } from "../services/api"
 import { Episode, EpisodeModel } from "./Episode"
 import { withSetPropAction } from "./helpers/withSetPropAction"
@@ -7,7 +13,13 @@ export const EpisodeStoreModel = types
   .model("EpisodeStore")
   .props({
     episodes: types.array(EpisodeModel),
-    favorites: types.array(types.reference(EpisodeModel)),
+    favorites: types.array(
+      types.safeReference(EpisodeModel, {
+        onInvalidated(event) {
+          console.log("INVALIDATED", JSON.stringify(event, null, 4))
+        },
+      }),
+    ),
     favoritesOnly: false,
   })
   .actions(withSetPropAction)
@@ -21,7 +33,8 @@ export const EpisodeStoreModel = types
       }
     },
     addFavorite(episode: Episode) {
-      store.favorites.push(episode)
+      const bsEpisode: ReferenceIdentifier[] = ["BS_EPISODE_REFERENCE"]
+      store.setProp("favorites", bsEpisode)
     },
     removeFavorite(episode: Episode) {
       store.favorites.remove(episode)
